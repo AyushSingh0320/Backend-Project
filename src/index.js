@@ -1,7 +1,7 @@
 import ConnectingDB from "./DB/PracticeDB.js";
 import dotenv from 'dotenv'
 import app from "./app.js";
-dotenv.config({ path: './.env' })
+dotenv.config({  })
 const port = process.env.Port || 8000
 
 
