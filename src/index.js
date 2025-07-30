@@ -1,7 +1,7 @@
 import ConnectingDB from "./DB/PracticeDB.js";
 import dotenv from 'dotenv'
 import app from "./app.js";
-dotenv.config({  })
+dotenv.config({})
 const port = process.env.Port || 8000
 
 
@@ -23,3 +23,6 @@ ConnectingDB()
             console.log("MongoDB Error" , err)
            })
 
+app.listen(port , () => {
+    console.log(`Server running on ${port}`)
+})
