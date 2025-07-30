@@ -59,7 +59,7 @@ UserSchema.methods.ispasswordcoreext = async function (password) {
   }
 
   UserSchema.methods.generateaccessToken = function (){
-     jwt.sign(
+    return jwt.sign(
         {
             _id : this._id,
             email : this.email,
@@ -73,7 +73,18 @@ UserSchema.methods.ispasswordcoreext = async function (password) {
      )
   }
   UserSchema.methods.generaterefreshToken = function () {
+  return jwt.sign(
+        {
+            _id : this._id,
+            email : this.email,
+            username :  this.username
+        },
+        process.env.REFRESH_TOKEN_SECRET ,
+        {
+          expiresIn : process.env.REFRESH_TOKEN_EXP
+        }
 
+     )
   }
 
 export const User = mongoose.model("User" , UserSchema)
