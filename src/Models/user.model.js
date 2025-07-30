@@ -56,5 +56,24 @@ UserSchema.pre("save" , async function (next) {
 UserSchema.methods.ispasswordcoreext = async function (password) {
   const passresult = await bcrypt.compare(password , this.password)
   return passresult ;
-}
+  }
+
+  UserSchema.methods.generateaccessToken = function (){
+     jwt.sign(
+        {
+            _id : this._id,
+            email : this.email,
+            username :  this.username
+        },
+        process.env.ACCESS_TOKEN_SECRET ,
+        {
+          expiresIn : process.env.REFRESH_TOKEN_EXP
+        }
+
+     )
+  }
+  UserSchema.methods.generaterefreshToken = function () {
+
+  }
+
 export const User = mongoose.model("User" , UserSchema)
