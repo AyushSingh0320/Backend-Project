@@ -16,10 +16,13 @@ app.use(express.urlencoded())
 app.use(express.static("Public"))
 app.use(cookieParser())
 
+// route import 
+import route from "./Routes/Register.route.js";
+// Usage of route 
+
+app.use("/Users" , route);
 app.get("/" , (req , res) => {
-     res.status(200).send("Hiee welcome to my site");
+    res.send("helloo")
 })
-
-
 
 export default app ;
