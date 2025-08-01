@@ -20,7 +20,7 @@ app.use(cookieParser())
 import route from "./Routes/Register.route.js";
 // Usage of route 
 
-app.use("/Users" , route);
+app.use("/api/v1/users" , route);
 app.get("/" , (req , res) => {
     res.send("helloo")
 })
