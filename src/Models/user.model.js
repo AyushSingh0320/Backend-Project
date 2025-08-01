@@ -53,7 +53,7 @@ UserSchema.pre("save" , async function (next) {
         this.Password = await bcrypt.hash(this.Password , 8) ;
         next()
 })
-UserSchema.methods.ispasswordcoreext = async function (password) {
+UserSchema.methods.ispasswordcorect = async function (password) {
   const passresult = await bcrypt.compare(password , this.password)
   return passresult ;
   }
@@ -76,8 +76,6 @@ UserSchema.methods.ispasswordcoreext = async function (password) {
   return jwt.sign(
         {
             _id : this._id,
-            email : this.email,
-            username :  this.username
         },
         process.env.REFRESH_TOKEN_SECRET ,
         {

@@ -22,7 +22,9 @@ import route from "./Routes/Register.route.js";
 
 app.use("/api/v1/users" , route);
 app.get("/" , (req , res) => {
-    res.send("helloo")
+    res.status(200).json({
+        message : "helloo there"
+    })
 })
 
 export default app ;

@@ -1,5 +1,5 @@
 import {v2 as cloudinary} from "cloudinary";
-import fs from fs; 
+import fs from "fs"; 
 
 cloudinary.config({ 
         cloud_name: process.env.CLOUDINARY_NAME,
@@ -16,7 +16,9 @@ cloudinary.config({
     })
     console.log("File uploaded successfully" , response.url)
     fs.unlinkSync(Filepath);
+    console.log(response);
     return response;
+  
    } catch (error) {
    fs.unlinkSync(Filepath)
    return null;
