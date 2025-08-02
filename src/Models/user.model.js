@@ -41,7 +41,10 @@ const UserSchema = new mongoose.Schema(
        type : Schema.Types.ObjectId,
        ref : "Video"
      }] ,
-
+     RefreshToken : {
+      type : String ,
+      
+     }
     },
     {
         timestamps : true
