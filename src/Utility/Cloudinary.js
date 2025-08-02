@@ -20,13 +20,14 @@ cloudinary.config({
    const response = await cloudinary.uploader.upload(Filepath , {
         resource_type : "auto"
     })
-    console.log("File uploaded successfully" , response.url)
+     fs.unlinkSync(Filepath)
+    // console.log("File uploaded successfully" , response.url)
     
-    console.log(response);
+    // console.log(response);
     return response;
   
    } catch (error) {
-//    fs.unlinkSync(Filepath)
+   fs.unlinkSync(Filepath)
    return null;
    }
    }  
