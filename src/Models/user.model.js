@@ -13,19 +13,19 @@ const UserSchema = new mongoose.Schema(
     index : true ,
     },
     Password : {
-        type : string, 
+        type : String, 
         require : true ,
         unique : true , 
         trim : true ,
     },
        email : {
-        type : string, 
+        type : String, 
         require : true ,
         unique : true , 
         trim : true ,
     },
        Fullname : {
-        type : string, 
+        type : String, 
         require : true ,
         trim : true ,
     }, 
@@ -43,7 +43,7 @@ const UserSchema = new mongoose.Schema(
      }] ,
      RefreshToken : {
       type : String ,
-      
+
      }
     },
     {

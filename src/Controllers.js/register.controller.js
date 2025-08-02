@@ -4,7 +4,7 @@ import { User } from "../Models/user.model.js";
 import fileupload from "../Utility/Cloudinary.js";
 import ApiResponse from "../Utility/Response.js";
 
-
+console.log("connnnn")
 const RegisterUser = DBhandler( async (req , res) => {
     console.log("routeee")
     const { username, Password , email , Fullname } =   req.body
