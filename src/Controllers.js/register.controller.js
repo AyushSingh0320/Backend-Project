@@ -8,8 +8,8 @@ import ApiResponse from "../Utility/Response.js";
 const RegisterUser = DBhandler( async (req , res) =>{
    //  console.log("routeee")
     const { username, Password , email , Fullname } =   req.body
-     console.log(username)
-     console.log(req.body)
+   //   console.log(username)
+   //   console.log(req.body)
      if(!username || !Password || !email || !Fullname){
       throw new Apierror (405 , "All data is required ")
      }
@@ -26,7 +26,7 @@ const RegisterUser = DBhandler( async (req , res) =>{
      }
     const avatarpath =  req.files?.avatar[0]?.path;
     const coverimagepath = req.files?.coverimage[0]?.path;
-    console.log(req.files);
+   //  console.log(req.files);
     if(!avatarpath || !coverimagepath){
     throw new Apierror(402 , "Avatar and coverimage is required")
     }
@@ -58,4 +58,6 @@ const RegisterUser = DBhandler( async (req , res) =>{
     new ApiResponse(200 , userexistance , "User Register successfully")
     )
    })
-export default RegisterUser;
+export  {
+   RegisterUser,
+};

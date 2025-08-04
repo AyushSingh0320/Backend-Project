@@ -21,9 +21,9 @@ import route from "./Routes/Register.route.js";
 // Usage of route 
 
 app.use("/api/v1/users" , route);
-app.get("/" , (req , res) => {
+app.get("/" , (req , res) => {   
     res.status(200).json({
-        message : "helloo there"
+        message : "helloo there"         // for testing that server is running or not !!
     })
 })
 
