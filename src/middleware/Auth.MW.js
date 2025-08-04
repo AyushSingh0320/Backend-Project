@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import DBhandler from "../Utility/DBhandler,js"
+import DBhandler from "../Utility/DBhandler.js"
 import Apierror from "../Utility/Error.js";
 import { User } from "../Models/user.model.js";
 
