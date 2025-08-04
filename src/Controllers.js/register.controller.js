@@ -30,6 +30,7 @@ import ApiResponse from "../Utility/Response.js";
    };
 
 
+// Method for Registering the user 
 
 const RegisterUser = DBhandler( async (req , res) =>{
    //  console.log("routeee")
@@ -85,6 +86,7 @@ const RegisterUser = DBhandler( async (req , res) =>{
     )
    });
 
+//Method for Login
 
 const loginuser = DBhandler(async (req , res) => {
     // take a data from req.body 
@@ -119,9 +121,32 @@ if(!isPasswordvalid) {
 const accessToken = await generateaccessTokenMethod(existanceofuser._id);
 const RefreshToken = await generaterefreshTokenMethod(existanceofuser._id);
 
+const LoggedInUser = await User.findById(existanceofuser._id).select("-Password -RefreshToken")
 
+const options = {
+   HTMLonly : true,
+   Secure : true
+}
+return res
+       .status(200)
+       .cookie("accessToken" , accessToken , options)
+       .cookie("RefreshToken" , RefreshToken , options)
+       .json(
+         new ApiResponse(
+            200 , 
+            {
+              user : LoggedInUser , accessToken ,RefreshToken
+            },
+            "User logged In seccessfully"
+        )
+      )
+});
+ 
+// Method for logout 
+
+const Logoutuser = DBhandler(async (req , res) => {
+    
 })
-
 
 
 
