@@ -1,10 +1,7 @@
 import jwt from "jsonwebtoken";
 import DBhandler from "../Utility/DBhandler,js"
-import Apierror from "../Utility/Error";
-import { User } from "../Models/user.model";
-
-
-
+import Apierror from "../Utility/Error.js";
+import { User } from "../Models/user.model.js";
 
 const Auth = DBhandler(async (req , _ , next) => 
     {
