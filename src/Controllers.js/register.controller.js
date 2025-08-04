@@ -60,6 +60,32 @@ const RegisterUser = DBhandler( async (req , res) =>{
    });
 
 const loginuser = DBhandler(async (req , res) => {
+    // take a data from req.body 
+    // check that you got username or email
+    // check user exist
+    // password check  
+    // if exist give access token to user 
+    // send response 
+   
+    const {email , username , Password} = req.body
+   
+   if (!email && !username) {
+      throw new Apierror(404 , "Email or username is required")
+   };
+   if (!Password) {
+      throw new Apierror (404 , "Password is requires")
+   };
+ const existanceofuser = await User.findOne({
+   $or : [{username} , {email}]
+ })
+ 
+if(!existanceofuser){
+   throw new Apierror(406 , "User doesn't exist")
+}
+
+
+
+
 
 })
 
