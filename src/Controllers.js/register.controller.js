@@ -145,20 +145,32 @@ return res
 // Method for logout 
 
 const Logoutuser = DBhandler(async (req , res) => {
-    
+   await User.findByIdAndUpdate(req.user._id ,
+      {
+         $set : {
+             RefreshToken : undefined
+         }
+
+      },
+      {
+         new : true
+      }
+   );
+
+   const options = {
+   HTMLonly : true,
+   Secure : true
+  }
+
+  return res
+  .status(200)
+  .clearCookie("accessToken" , options)
+  .clearCookie("RefreshToken" , options)
+  .json(new ApiResponse(200 , {} , "User logged out"))
 })
-
-
-
-
-
-
-
-
-
-
 
 export  {
    RegisterUser,
    loginuser,
+   Logoutuser
 };
