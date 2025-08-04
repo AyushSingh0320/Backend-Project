@@ -4,6 +4,32 @@ import { User } from "../Models/user.model.js";
 import fileupload from "../Utility/Cloudinary.js";
 import ApiResponse from "../Utility/Response.js";
 
+ // Method for access token 
+   const generateaccessTokenMethod = async(userID) => {
+      try {
+         const user = User.findById(userID);
+         const accessToken  = user.generateaccessToken();
+         return accessToken;
+   } catch (error) {
+         throw new Apierror (500 , "something went wrong while generating access token")
+      }
+   };
+
+   //Method for refresh Token
+
+   const generaterefreshTokenMethod = async(userID) => {
+   try {
+   const user = User.findById(userID);
+   const RefreshToken = user.generaterefreshToken();
+   user.RefreshToken =  RefreshToken;
+   await user.save({validateBeforeSave: false})
+   return RefreshToken;
+   } catch (error) {
+    throw new Apierror (500 , "something went wrong while generating refresh token") 
+   }
+   };
+
+
 
 const RegisterUser = DBhandler( async (req , res) =>{
    //  console.log("routeee")
@@ -59,6 +85,7 @@ const RegisterUser = DBhandler( async (req , res) =>{
     )
    });
 
+
 const loginuser = DBhandler(async (req , res) => {
     // take a data from req.body 
     // check that you got username or email
@@ -67,7 +94,7 @@ const loginuser = DBhandler(async (req , res) => {
     // if exist give access token to user 
     // send response 
    
-    const {email , username , Password} = req.body
+   const {email , username , Password} = req.body
    
    if (!email && !username) {
       throw new Apierror(404 , "Email or username is required")
@@ -89,12 +116,8 @@ if(!isPasswordvalid) {
    throw new Apierror (401 , "Password incorrect")
 }
 
-
-
-
-
-
-
+const accessToken = await generateaccessTokenMethod(existanceofuser._id);
+const RefreshToken = await generaterefreshTokenMethod(existanceofuser._id);
 
 
 })
