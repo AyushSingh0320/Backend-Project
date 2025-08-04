@@ -3,11 +3,13 @@ import Apierror from "../Utility/Error.js";
 import { User } from "../Models/user.model.js";
 import fileupload from "../Utility/Cloudinary.js";
 import ApiResponse from "../Utility/Response.js";
+import jwt from "jsonwebtoken";
 
  // Method for access token 
-   const generateaccessTokenMethod = async(userID) => {
+ 
+   const generateaccessTokenMethod = async (userID) => {
       try {
-         const user = User.findById(userID);
+         const user = await User.findById(userID);
          const accessToken  = user.generateaccessToken();
          return accessToken;
    } catch (error) {
@@ -19,7 +21,7 @@ import ApiResponse from "../Utility/Response.js";
 
    const generaterefreshTokenMethod = async(userID) => {
    try {
-   const user = User.findById(userID);
+   const user = await User.findById(userID);
    const RefreshToken = user.generaterefreshToken();
    user.RefreshToken =  RefreshToken;
    await user.save({validateBeforeSave: false})
@@ -96,7 +98,7 @@ const loginuser = DBhandler(async (req , res) => {
     // if exist give access token to user 
     // send response 
    
-   const {email , username , Password} = req.body
+   const { email , username , Password} = req.body
    
    if (!email && !username) {
       throw new Apierror(404 , "Email or username is required")
@@ -167,6 +169,15 @@ const Logoutuser = DBhandler(async (req , res) => {
   .clearCookie("accessToken" , options)
   .clearCookie("RefreshToken" , options)
   .json(new ApiResponse(200 , {} , "User logged out"))
+});
+
+// Method for providing access token to user
+
+const refreshaccessToken = DBhandler(async (req ,res ) => {
+   const TakingRefreshTokenforGeneratingAccessToken = req.cookies.RefreshToken || req.body.RefreshToken
+
+   if(!TakingRefreshTokenforGeneratingAccessToken){ throw new Apierror(401 , "unauthorized request")}
+
 })
 
 export  {

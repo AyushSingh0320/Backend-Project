@@ -1,12 +1,15 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
+dotenv.config({path : "./.env"})
+
 
 const UserSchema = new mongoose.Schema(
     {
    username : {
     type : String ,
-    require : true ,
+    required : true ,
     unique : true ,
     lowercase : true , 
     trim : true , 
@@ -14,28 +17,28 @@ const UserSchema = new mongoose.Schema(
     },
     Password : {
         type : String, 
-        require : true ,
+        required : true ,
         unique : true , 
         trim : true ,
     },
        email : {
         type : String, 
-        require : true ,
+        required : true ,
         unique : true , 
         trim : true ,
     },
        Fullname : {
         type : String, 
-        require : true ,
+        required : true ,
         trim : true ,
     }, 
     avatar : {
         type : String , // here we are going to use cloudinary that is similar to Aws 
-        require : true ,
+        required : true ,
     },
       coverimage : {
         type : String , // here we are going to use cloudinary that is similar to Aws 
-        require : true ,
+        required : true ,
     },
      watchHistory : [{
        type : Schema.Types.ObjectId,
@@ -52,12 +55,12 @@ const UserSchema = new mongoose.Schema(
 )
 
 UserSchema.pre("save" , async function (next) {
-    if(!this.isModified("password")) return next();
-        this.Password = await bcrypt.hash(this.Password , 8) ;
+    if(!this.isModified("Password")) return next();
+        this.Password = await bcrypt.hash(this.Password, 8) 
         next()
 })
 UserSchema.methods.ispasswordcorect = async function (password) {
-  const passresult = await bcrypt.compare(password , this.password)
+  const passresult = await bcrypt.compare(password , this.Password)
   return passresult ;
   }
 
@@ -68,9 +71,9 @@ UserSchema.methods.ispasswordcorect = async function (password) {
             email : this.email,
             username :  this.username
         },
-        process.env.ACCESS_TOKEN_SECRET ,
+        process.env.ACCESS_TOKEN_SECRET,
         {
-          expiresIn : process.env.REFRESH_TOKEN_EXP
+          expiresIn : process.env.ACCESS_TOKEN_EXP
         }
 
      )
