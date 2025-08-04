@@ -6,7 +6,7 @@ import ApiResponse from "../Utility/Response.js";
 import jwt from "jsonwebtoken";
 
  // Method for access token 
- 
+
    const generateaccessTokenMethod = async (userID) => {
       try {
          const user = await User.findById(userID);
@@ -176,7 +176,51 @@ const Logoutuser = DBhandler(async (req , res) => {
 const refreshaccessToken = DBhandler(async (req ,res ) => {
    const TakingRefreshTokenforGeneratingAccessToken = req.cookies.RefreshToken || req.body.RefreshToken
 
-   if(!TakingRefreshTokenforGeneratingAccessToken){ throw new Apierror(401 , "unauthorized request")}
+   if(!TakingRefreshTokenforGeneratingAccessToken){ throw new Apierror(401 , "unauthorized request")};
+
+   const decodetoken = jwt.verify(TakingRefreshTokenforGeneratingAccessToken , process.env.REFRESH_TOKEN_SECRET)
+
+   if(!decodetoken){
+      throw new Apierror(403 , "Invalid Refresh Token")
+   }
+
+   const ID = decodetoken?._id 
+
+   const user = await User.findById(ID);
+
+   if(!user) {
+      throw new Apierror (402 , "Refresh token is not valid")
+   }
+
+   if(TakingRefreshTokenforGeneratingAccessToken !== user.RefreshToken){
+      throw new Apierror(402 , "Refresh token is expired or used")
+   }
+
+  const accessToken = generateaccessTokenMethod(user._id)
+  const RefreshToken = generaterefreshTokenMethod(user._id)
+
+  const options = {
+   httpOnly : true,
+   Secure : true
+}
+
+return res.status(200)
+          .cookie("accessToken" , accessToken , options)
+          .cookie("RefreshToken" , RefreshToken , options)
+          .json(
+            new ApiResponse(202 , 
+               {
+                  accessToken,
+                  RefreshToken
+               },
+               "Access token refreshed"
+            )
+          )
+
+
+
+
+
 
 })
 
