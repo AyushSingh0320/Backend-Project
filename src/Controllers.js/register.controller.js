@@ -83,6 +83,16 @@ if(!existanceofuser){
    throw new Apierror(406 , "User doesn't exist")
 }
 
+const isPasswordvalid = await existanceofuser.ispasswordcorect(Password)
+
+if(!isPasswordvalid) {
+   throw new Apierror (401 , "Password incorrect")
+}
+
+
+
+
+
 
 
 
