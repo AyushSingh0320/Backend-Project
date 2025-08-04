@@ -57,7 +57,24 @@ const RegisterUser = DBhandler( async (req , res) =>{
     return res.status(200).json(
     new ApiResponse(200 , userexistance , "User Register successfully")
     )
-   })
+   });
+
+const loginuser = DBhandler(async (req , res) => {
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
 export  {
    RegisterUser,
+   loginuser,
 };
