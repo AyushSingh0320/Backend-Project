@@ -227,5 +227,6 @@ return res.status(200)
 export  {
    RegisterUser,
    loginuser,
-   Logoutuser
+   Logoutuser,
+   refreshaccessToken
 };
