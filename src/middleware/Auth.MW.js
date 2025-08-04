@@ -10,8 +10,9 @@ const Auth = DBhandler(async (req , res , next) =>
         req.header("Authorization")?.replace("Bearer " , "");
 
         if(!token){
-            throw new Apierror()
+            throw new Apierror(401 , "Unauthorized Request")
         }
+        
 
 })
 
