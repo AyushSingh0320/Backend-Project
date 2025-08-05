@@ -104,7 +104,7 @@ const loginuser = DBhandler(async (req , res) => {
       throw new Apierror(404 , "Email or username is required")
    };
    if (!Password) {
-      throw new Apierror (404 , "Password is requires")
+      throw new Apierror (404 , "Password is required")
    };
  const existanceofuser = await User.findOne({
    $or : [{username} , {email}]
@@ -233,21 +233,29 @@ const Changecurrentpassword = DBhandler(async (req , res) => {
       throw new Apierror(408 , "new password required")
    }
    const user = await User.findById(req.user._id)
+   console.log(user);
+   
    if(!user){
       throw new Apierror(404 , "Unauthorizes request")
    }
-   if(oldpassword !== user.Password){
-      throw new Apierror(404 , "Password is incorrect")
+ 
+   const ispasswordcorect = await user.ispasswordcorect(oldpassword)
+   if(!ispasswordcorect){
+      throw new Apierror(404 , "Invalid Old Password")
    }
-  user.Password = newPassword
+
+ user.Password = newPassword
   await user.save({validateBeforeSave : false})
 
-  
+  return res.status(200)
+            .json(new ApiResponse(200 , {} , "Your Password change Successfully"))
+
 })
 
 export  {
    RegisterUser,
    loginuser,
    Logoutuser,
-   refreshaccessToken
+   refreshaccessToken,
+   Changecurrentpassword
 };
