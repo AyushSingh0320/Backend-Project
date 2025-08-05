@@ -299,7 +299,7 @@ const updateavatar = DBhandler (async (req ,res ) => {
    throw new Apierror(404 , "Erroe while uploadind to cloudinary")
  }
 
- const user = User.findByIdAndUpdate(req.user._id ,
+ const user = User.findByIdAndUpdate(req.user?._id ,
    {
       $set : {
          avatar : avatar.url
