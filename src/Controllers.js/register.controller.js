@@ -299,7 +299,7 @@ const updateavatar = DBhandler (async (req ,res ) => {
    throw new Apierror(404 , "Erroe while uploadind avatar to cloudinary")
  }
 
- const user = User.findByIdAndUpdate(req.user?._id ,
+ const user = await User.findByIdAndUpdate(req.user?._id ,
    {
       $set : {
          avatar : avatar.url
@@ -312,7 +312,7 @@ return res.status(200)
            .json(new ApiResponse(200 , user , "Avatar changes seccessfully"))
 })
 
-// Method for updatind coverimage
+// Method for updating coverimage
 
 const updatecoverimage = DBhandler (async (req ,res ) => {
   const coverimagelocalpath = req.file?.path
@@ -326,17 +326,17 @@ const updatecoverimage = DBhandler (async (req ,res ) => {
    throw new Apierror(404 , "Erroe while uploadind coverimage to cloudinary")
  }
 
- const user = User.findByIdAndUpdate(req.user?._id ,
+ const user = await User.findByIdAndUpdate(req.user?._id ,
    {
       $set : {
-         avatar : avatar.url
+         coverimage : coverimage.url
       }
    } , 
    {new : true}.select("-Password")
  )
 
 return res.status(200)
-           .json(new ApiResponse(200 , user , "Avatar changes seccessfully"))
+           .json(new ApiResponse(200 , user , "coverimage changes seccessfully"))
 })
 
 
