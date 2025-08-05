@@ -354,4 +354,5 @@ export  {
    Getcurrentuser,
    Updatecredentials,
    updateavatar,
+   updatecoverimage
 };
