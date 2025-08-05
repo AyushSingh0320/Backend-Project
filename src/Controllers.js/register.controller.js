@@ -296,7 +296,7 @@ const updateavatar = DBhandler (async (req ,res ) => {
  console.log(avatar);
 
  if(!avatar.url){
-   throw new Apierror(404 , "Erroe while uploadind to cloudinary")
+   throw new Apierror(404 , "Erroe while uploadind avatar to cloudinary")
  }
 
  const user = User.findByIdAndUpdate(req.user?._id ,
@@ -310,12 +310,35 @@ const updateavatar = DBhandler (async (req ,res ) => {
 
 return res.status(200)
            .json(new ApiResponse(200 , user , "Avatar changes seccessfully"))
-
-
-
-
-
 })
+
+// Method for updatind coverimage
+
+const updatecoverimage = DBhandler (async (req ,res ) => {
+  const coverimagelocalpath = req.file?.path
+  if(!coverimagelocalpath){
+   throw new Apierror(404 , "coverimage is missing")
+  }
+  const coverimage = await fileupload(coverimagelocalpath)
+ console.log(coverimage);
+
+ if(!coverimage.url){
+   throw new Apierror(404 , "Erroe while uploadind coverimage to cloudinary")
+ }
+
+ const user = User.findByIdAndUpdate(req.user?._id ,
+   {
+      $set : {
+         avatar : avatar.url
+      }
+   } , 
+   {new : true}.select("-Password")
+ )
+
+return res.status(200)
+           .json(new ApiResponse(200 , user , "Avatar changes seccessfully"))
+})
+
 
 
 
@@ -330,5 +353,5 @@ export  {
    Changecurrentpassword,
    Getcurrentuser,
    Updatecredentials,
-    updateavatar
+   updateavatar,
 };
