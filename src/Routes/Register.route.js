@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {Changecurrentpassword, loginuser, Logoutuser, refreshaccessToken, RegisterUser} from "../Controllers.js/register.controller.js";
+import {Changecurrentpassword, Getcurrentuser, loginuser, Logoutuser, refreshaccessToken, RegisterUser, updateavatar, updatecoverimage, Updatecredentials} from "../Controllers.js/register.controller.js";
 import { upload } from "../middleware/multer.MW.js";
 import Auth from "../middleware/Auth.MW.js";
 const route = Router();
@@ -35,6 +35,23 @@ route.route("/refresh-token").post(refreshaccessToken);
 
 route.route("/change-password").post(Auth , Changecurrentpassword)
 
+// getting-user route 
+
+route.route("/getuser").get(Auth , Getcurrentuser);
+
+// update-user route
+
+route.route("/update-user").put(Auth , Updatecredentials )
+
+// Update-avatar route
+
+route.route("/update-avatar").post(upload.single("avatar"), Auth , updateavatar
+)
+
+// update-coverimage route 
+
+route.route("/update-avatar").post(upload.single("coverimage"), Auth , updatecoverimage
+)
 
 
 export default route ;
