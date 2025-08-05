@@ -295,6 +295,10 @@ const updateavatar = DBhandler (async (req ,res ) => {
   const avatar = await fileupload(avatarlocalpath)
  console.log(avatar);
 
+ if(!avatar.url){
+   throw new Apierror(404 , "Erroe while uploadind to cloudinary")
+ }
+
  const user = User.findByIdAndUpdate(req.user._id ,
    {
       $set : {
