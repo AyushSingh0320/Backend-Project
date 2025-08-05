@@ -224,6 +224,27 @@ return res.status(200)
 
 })
 
+const Changecurrentpassword = DBhandler(async (req , res) => {
+   const {oldpassword , newPassword} = req.body
+   if(oldpassword == newPassword){
+      throw new Apierror(408 , "your previous password and current is same")
+   }
+   if(!newPassword){
+      throw new Apierror(408 , "new password required")
+   }
+   const user = await User.findById(req.user._id)
+   if(!user){
+      throw new Apierror(404 , "Unauthorizes request")
+   }
+   if(oldpassword !== user.Password){
+      throw new Apierror(404 , "Password is incorrect")
+   }
+  user.Password = newPassword
+  await user.save({validateBeforeSave : false})
+
+  
+})
+
 export  {
    RegisterUser,
    loginuser,
