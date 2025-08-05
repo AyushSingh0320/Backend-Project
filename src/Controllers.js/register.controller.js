@@ -5,7 +5,8 @@ import fileupload from "../Utility/Cloudinary.js";
 import ApiResponse from "../Utility/Response.js";
 import jwt from "jsonwebtoken";
 
- // Method for access token 
+
+// Method for access token 
 
    const generateaccessTokenMethod = async (userID) => {
       try {
@@ -17,7 +18,7 @@ import jwt from "jsonwebtoken";
       }
    };
 
-   //Method for refresh Token
+//Method for refresh Token
 
    const generaterefreshTokenMethod = async(userID) => {
    try {
@@ -284,6 +285,34 @@ const Updatecredentials = DBhandler (async (req , res) => {
              .json(new ApiResponse(200 , userdata , "updated seccessfully"))
 })
 
+// Method for updating Avatar 
+
+const updateavatar = DBhandler (async (req ,res ) => {
+  const avatarlocalpath = req.file?.path
+  if(!avatarlocalpath){
+   throw new Apierror(404 , "Avatar is missing")
+  }
+  const avatar = await fileupload(avatarlocalpath)
+ console.log(avatar);
+
+ const user = User.findByIdAndUpdate(req.user._id ,
+   {
+      $set : {
+         avatar : avatar.url
+      }
+   } , 
+   {new : true}.select("-Password")
+ )
+
+return res.status(200)
+           .json(new ApiResponse(200 , user , "Avatar changes seccessfully"))
+
+
+
+
+
+})
+
 
 
 
@@ -295,5 +324,7 @@ export  {
    Logoutuser,
    refreshaccessToken,
    Changecurrentpassword,
-   Getcurrentuser
+   Getcurrentuser,
+   Updatecredentials,
+    updateavatar
 };
