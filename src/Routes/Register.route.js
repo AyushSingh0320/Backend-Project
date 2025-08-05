@@ -1,10 +1,10 @@
 import { Router } from "express";
-import {loginuser, Logoutuser, refreshaccessToken, RegisterUser} from "../Controllers.js/register.controller.js";
+import {Changecurrentpassword, loginuser, Logoutuser, refreshaccessToken, RegisterUser} from "../Controllers.js/register.controller.js";
 import { upload } from "../middleware/multer.MW.js";
 import Auth from "../middleware/Auth.MW.js";
 const route = Router();
 
-
+// register route
 route.route("/register").post(
     upload.fields([
         {
@@ -18,14 +18,22 @@ route.route("/register").post(
     ]),
     RegisterUser
 );
-
+// Login route
 route.route("/login").post(loginuser);
 
 // Secured route 
 
+// Logout route
+
 route.route("/logout").post(Auth , Logoutuser);
 
-route.route("/refresh-token").post(refreshaccessToken);
+// Refresh-token route
+
+route.route("/refresh-token").post(refreshaccessToken); 
+
+// change-password route
+
+route.route("/change-password").post(Auth , Changecurrentpassword)
 
 
 
