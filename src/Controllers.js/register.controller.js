@@ -259,6 +259,35 @@ const Getcurrentuser = DBhandler( async (req, res)=> {
 return  res.status(200)
            .json(new ApiResponse(200 , req.user, "User fetches successfully"))
 })
+ 
+
+// Method for updating user 
+
+const Updatecredentials = DBhandler (async (req , res) => {
+   const {Fullname , email} = req.body
+
+   if(!Fullname || !email){
+      throw new Apierror(200 , "Fullname or username is requiredd")
+   }
+  const user = await User.findByIdAndUpdate(req.user?._id ,
+   {
+      $set : {
+         Fullname,
+         email
+      }
+   },
+   {new : true}
+  )
+    const userdata = await User.findById(user._id).select("-Password")
+
+    return res.status(200)
+             .json(new ApiResponse(200 , userdata , "updated seccessfully"))
+})
+
+
+
+
+
 
 export  {
    RegisterUser,
@@ -266,4 +295,5 @@ export  {
    Logoutuser,
    refreshaccessToken,
    Changecurrentpassword,
+   Getcurrentuser
 };
