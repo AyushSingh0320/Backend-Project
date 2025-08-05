@@ -223,6 +223,7 @@ return res.status(200)
 
 
 })
+// Method for changing Password 
 
 const Changecurrentpassword = DBhandler(async (req , res) => {
    const {oldpassword , newPassword} = req.body
@@ -236,7 +237,7 @@ const Changecurrentpassword = DBhandler(async (req , res) => {
    console.log(user);
    
    if(!user){
-      throw new Apierror(404 , "Unauthorizes request")
+      throw new Apierror(404 , "Unauthorized request")
    }
  
    const ispasswordcorect = await user.ispasswordcorect(oldpassword)
@@ -250,6 +251,13 @@ const Changecurrentpassword = DBhandler(async (req , res) => {
   return res.status(200)
             .json(new ApiResponse(200 , {} , "Your Password change Successfully"))
 
+});
+
+// Method for getting current user
+
+const Getcurrentuser = DBhandler( async (req, res)=> {
+return  res.status(200)
+           .json(new ApiResponse(200 , req.user, "User fetches successfully"))
 })
 
 export  {
@@ -257,5 +265,5 @@ export  {
    loginuser,
    Logoutuser,
    refreshaccessToken,
-   Changecurrentpassword
+   Changecurrentpassword,
 };
