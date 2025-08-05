@@ -268,7 +268,7 @@ const Updatecredentials = DBhandler (async (req , res) => {
    const {Fullname , email} = req.body
 
    if(!Fullname || !email){
-      throw new Apierror(200 , "Fullname or username is requiredd")
+      throw new Apierror(200 , "Fullname or email is requiredd")
    }
   const user = await User.findByIdAndUpdate(req.user?._id ,
    {
@@ -305,8 +305,8 @@ const updateavatar = DBhandler (async (req ,res ) => {
          avatar : avatar.url
       }
    } , 
-   {new : true}.select("-Password")
- )
+   {new : true}
+ ).select("-Password")
 
 return res.status(200)
            .json(new ApiResponse(200 , user , "Avatar changes seccessfully"))
@@ -332,8 +332,8 @@ const updatecoverimage = DBhandler (async (req ,res ) => {
          coverimage : coverimage.url
       }
    } , 
-   {new : true}.select("-Password")
- )
+   {new : true}
+ ).select("-Password")
 
 return res.status(200)
            .json(new ApiResponse(200 , user , "coverimage changes seccessfully"))

@@ -50,7 +50,7 @@ route.route("/update-avatar").post(upload.single("avatar"), Auth , updateavatar
 
 // update-coverimage route 
 
-route.route("/update-avatar").post(upload.single("coverimage"), Auth , updatecoverimage
+route.route("/update-coverimage").post(upload.single("coverimage"), Auth , updatecoverimage
 )
 
 
