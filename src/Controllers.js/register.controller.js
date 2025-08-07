@@ -437,7 +437,15 @@ const getwatchhistory = DBhandler(async (req , res) => {
                      $lookup : {
                         from : "users" ,
                         localField : "owner",
-                        foreignField : "_id"
+                        foreignField : "_id",
+                        as : "owner"
+                     }
+                  },
+                  {
+                     $project : {
+                        Fullname : 1,
+                        username : 1,
+                        avatar : 1
                      }
                   }
                ]
