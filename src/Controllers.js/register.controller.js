@@ -352,5 +352,6 @@ export  {
    Getcurrentuser,
    Updatecredentials,
    updateavatar,
-   updatecoverimage
+   updatecoverimage,
+   getuserchannelprofile
 };
