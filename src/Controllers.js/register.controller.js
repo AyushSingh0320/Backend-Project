@@ -340,6 +340,7 @@ return res.status(200)
            .json(new ApiResponse(200 , user , "coverimage changes seccessfully"))
 });
 
+// Method for getting profile data
 const getuserchannelprofile = DBhandler(async (req , res) => {
        const {username} = req.params
         if(!username?.trim()){
