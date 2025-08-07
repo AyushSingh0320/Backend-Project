@@ -45,12 +45,12 @@ route.route("/update-user").put(Auth , Updatecredentials )
 
 // Update-avatar route
 
-route.route("/update-avatar").post(upload.single("avatar"), Auth , updateavatar
+route.route("/update-avatar").patch(upload.single("avatar"), Auth , updateavatar
 )
 
 // update-coverimage route 
 
-route.route("/update-coverimage").post(upload.single("coverimage"), Auth , updatecoverimage
+route.route("/update-coverimage").patch(upload.single("coverimage"), Auth , updatecoverimage
 )
 
 // channeldata route 
