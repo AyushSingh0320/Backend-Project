@@ -4,6 +4,7 @@ import { User } from "../Models/user.model.js";
 import fileupload from "../Utility/Cloudinary.js";
 import ApiResponse from "../Utility/Response.js";
 import jwt from "jsonwebtoken";
+import { json } from "express";
 
 
 // Method for access token 
@@ -365,11 +366,18 @@ const getuserchannelprofile = DBhandler(async (req , res) => {
                from : "subscriptions",
                localField : "_id",
                foreignField : "subscriber",
-               as : "subscriberTo"
+               as : "subscriberdTo"
             }
          },
          {
-            
+            $addFields : {
+               subscribercount : {
+                  $size : "$subscribers"
+               }, 
+            Numberodchanneluserhassubscribed : {
+               $size : "$subscriberdTo"
+            }
+            }
          }
         ])
 
