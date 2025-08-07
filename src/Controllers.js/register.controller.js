@@ -344,6 +344,7 @@ return res.status(200)
 
 
 const getuserchannelprofile = DBhandler(async (req , res) => {
+
        const {username} = req.params
         if(!username?.trim()){
          throw new Apierror(404 , "Username is missing")
@@ -418,7 +419,31 @@ const getuserchannelprofile = DBhandler(async (req , res) => {
 // Method for watchhistory 
 
 const getwatchhistory = DBhandler(async (req , res) => {
-
+      const id = req.user._id
+      const user = await User.aggregate([
+         {
+            $match : {
+               _id : id
+            }
+         } ,
+         {
+            $lookup : {
+               from : "videos",
+               localField : "watchHistory",
+               foreignField : "_id",
+               as : "watchHistory",
+               pipeline : [
+                  {
+                     $lookup : {
+                        from : "users" ,
+                        localField : "owner",
+                        foreignField : "_id"
+                     }
+                  }
+               ]
+            }
+         }
+      ])
 })
 
 export  {
