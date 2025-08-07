@@ -345,15 +345,17 @@ const getuserchannelprofile = DBhandler(async (req , res) => {
          throw new Apierror(404 , "Username is missing")
         }
 
-        User.aggregate([
+       const channeldata = await User.aggregate([
          {
-
+            $match : {
+               username : username
+            }
+         },
+         {
+             
          },
          {
 
-         },
-         {
-            
          }
         ])
 
