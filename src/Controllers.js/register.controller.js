@@ -337,6 +337,10 @@ const updatecoverimage = DBhandler (async (req ,res ) => {
 
 return res.status(200)
            .json(new ApiResponse(200 , user , "coverimage changes seccessfully"))
+});
+
+const getuserchannelprofile = DBhandler(async (req , res) => {
+
 })
 
 export  {
