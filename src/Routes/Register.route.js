@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {Changecurrentpassword, Getcurrentuser, loginuser, Logoutuser, refreshaccessToken, RegisterUser, updateavatar, updatecoverimage, Updatecredentials} from "../Controllers.js/register.controller.js";
+import {Changecurrentpassword, Getcurrentuser, getuserchannelprofile, loginuser, Logoutuser, refreshaccessToken, RegisterUser, updateavatar, updatecoverimage, Updatecredentials} from "../Controllers.js/register.controller.js";
 import { upload } from "../middleware/multer.MW.js";
 import Auth from "../middleware/Auth.MW.js";
 const route = Router();
@@ -52,6 +52,10 @@ route.route("/update-avatar").post(upload.single("avatar"), Auth , updateavatar
 
 route.route("/update-coverimage").post(upload.single("coverimage"), Auth , updatecoverimage
 )
+
+// channeldata route 
+
+route.route("/channel/:username").put(Auth , getuserchannelprofile)
 
 
 export default route ;
