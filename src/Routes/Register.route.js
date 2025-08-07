@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {Changecurrentpassword, Getcurrentuser, getuserchannelprofile, loginuser, Logoutuser, refreshaccessToken, RegisterUser, updateavatar, updatecoverimage, Updatecredentials} from "../Controllers.js/register.controller.js";
+import {Changecurrentpassword, Getcurrentuser, getuserchannelprofile, getwatchhistory, loginuser, Logoutuser, refreshaccessToken, RegisterUser, updateavatar, updatecoverimage, Updatecredentials} from "../Controllers.js/register.controller.js";
 import { upload } from "../middleware/multer.MW.js";
 import Auth from "../middleware/Auth.MW.js";
 const route = Router();
@@ -56,6 +56,10 @@ route.route("/update-coverimage").post(upload.single("coverimage"), Auth , updat
 // channeldata route 
 
 route.route("/channel/:username").put(Auth , getuserchannelprofile)
+
+// watchhistory route 
+
+route.route("/watch-history").get(Auth , getwatchhistory)
 
 
 export default route ;
