@@ -442,13 +442,6 @@ const getwatchhistory = DBhandler(async (req , res) => {
                      }
                   },
                   {
-                     $project : {
-                        Fullname : 1,
-                        username : 1,
-                        avatar : 1
-                     }
-                  },
-                  {
                      $addFields : {
                         owner : {
                             $first : "$owner"
@@ -457,6 +450,14 @@ const getwatchhistory = DBhandler(async (req , res) => {
                   }
                ]
             }
+         },
+         {
+              $project : {
+                        Fullname : 1,
+                        username : 1,
+                        avatar : 1,
+                        watchHistory : 1
+                     }
          }
       ])
       console.log(user)
