@@ -340,7 +340,11 @@ return res.status(200)
 });
 
 const getuserchannelprofile = DBhandler(async (req , res) => {
-
+       const {username} = req.params
+        if(!username?.trim()){
+         throw new Apierror(404 , "Username is missing")
+        }
+        
 })
 
 export  {
