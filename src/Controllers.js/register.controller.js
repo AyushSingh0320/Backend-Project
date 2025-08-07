@@ -352,7 +352,9 @@ const getuserchannelprofile = DBhandler(async (req , res) => {
             }
          },
          {
-             $lookup : 
+             $lookup : {
+               from : ""
+             }
          },
          {
 
