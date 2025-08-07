@@ -55,7 +55,7 @@ route.route("/update-coverimage").patch(upload.single("coverimage"), Auth , upda
 
 // channeldata route 
 
-route.route("/channel/:username").put(Auth , getuserchannelprofile)
+route.route("/channel/:username").get(Auth , getuserchannelprofile)
 
 // watchhistory route 
 
