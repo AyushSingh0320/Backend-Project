@@ -344,7 +344,19 @@ const getuserchannelprofile = DBhandler(async (req , res) => {
         if(!username?.trim()){
          throw new Apierror(404 , "Username is missing")
         }
-        
+
+        User.aggregate([
+         {
+
+         },
+         {
+
+         },
+         {
+            
+         }
+        ])
+
 })
 
 export  {
