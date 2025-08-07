@@ -371,15 +371,44 @@ const getuserchannelprofile = DBhandler(async (req , res) => {
          },
          {
             $addFields : {
-               subscribercount : {
+            subscribercount : {
                   $size : "$subscribers"
                }, 
-            Numberodchanneluserhassubscribed : {
+            Numberofchanneluserhassubscribed : {
                $size : "$subscriberdTo"
+            },
+            issubscribed : {
+                $cond : {
+                  if : {
+                 $in : [req.user?._id , "$subscribers.subscriber"]
+                  },
+                  then : true,
+                  else : false 
+                }
             }
+              
             }
+         },
+         {
+            $project : {
+            username : 1,
+            email : 1 ,
+            Fullname : 1 ,
+            avatar : 1 ,
+            coverimage : 1 ,
+            subscribercount : 1 ,
+            Numberofchanneluserhassubscribed : 1 ,
+            issubscribed : 1 ,
          }
+         }  
         ])
+   console.log(channeldata)
+
+   if(channeldata.length == 0){
+      throw new Apierror(404 , "Channel not found")
+   }
+
+   return res.status(200).json(new ApiResponse(200 , channeldata[0] , "Channel data fetched"))
 
 })
 
