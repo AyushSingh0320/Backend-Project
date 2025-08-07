@@ -4,7 +4,7 @@ import { User } from "../Models/user.model.js";
 import fileupload from "../Utility/Cloudinary.js";
 import ApiResponse from "../Utility/Response.js";
 import jwt from "jsonwebtoken";
-import { json } from "express";
+
 
 
 // Method for access token 
@@ -341,6 +341,8 @@ return res.status(200)
 });
 
 // Method for getting profile data
+
+
 const getuserchannelprofile = DBhandler(async (req , res) => {
        const {username} = req.params
         if(!username?.trim()){
@@ -413,6 +415,12 @@ const getuserchannelprofile = DBhandler(async (req , res) => {
 
 })
 
+// Method for watchhistory 
+
+const getwatchhistory = DBhandler(async (req , res) => {
+
+})
+
 export  {
    RegisterUser,
    loginuser,
@@ -423,5 +431,6 @@ export  {
    Updatecredentials,
    updateavatar,
    updatecoverimage,
-   getuserchannelprofile
+   getuserchannelprofile,
+   getwatchhistory
 };
