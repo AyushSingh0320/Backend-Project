@@ -447,11 +447,22 @@ const getwatchhistory = DBhandler(async (req , res) => {
                         username : 1,
                         avatar : 1
                      }
+                  },
+                  {
+                     $addFields : {
+                        owner : {
+                            $first : "$owner"
+                        }
+                     }
                   }
                ]
             }
          }
       ])
+      console.log(user)
+
+      return res.status(200)
+                 .json(new ApiResponse(200 , user[0].watchHistory , "watchhistory fetched"))
 })
 
 export  {
